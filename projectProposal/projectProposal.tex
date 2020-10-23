@@ -1,0 +1,96 @@
+\documentclass[12pt]{article}
+\usepackage[table]{xcolor}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[english]{babel}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{blkarray}
+\usepackage{float}
+\usepackage{bbm}
+\usepackage{bm}
+\usepackage{subfigure}
+\usepackage{commath}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{tcolorbox}
+\usepackage{mathtools}
+\usepackage[usestackEOL]{stackengine}
+
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{proposition}
+\newtheorem{exmp}{Example}[section]\newtheorem{definition}{Definition}[section]
+\newtheorem{remark}{Remark}
+\newtheorem{ex}{Exercise}
+\theoremstyle{definition}
+\theoremstyle{remark}
+\bibliographystyle{elsarticle-num}
+
+\DeclareMathOperator{\sinc}{sinc}
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\matindex}[1]{\mbox{\scriptsize#1}}
+\newcommand{\V}{\mathbb{V}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\prob}{\mathbb{P}}
+
+\lstset{numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=5pt}
+
+\begin{document}
+\title{PROJECT PROPOSAL	:\\
+Optimization using Neural Networks}
+%\author{Renzo Caballero}
+\date{}
+\maketitle
+
+In this project, we want to approximate the result of a minimization problem using a neural network (NN). Our problem $P(\cdot)$ is composed of a linear objective with linear and box constraints:
+\begin{equation}
+P(\bm{b,d},c)=\left[\min_{\bm{\phi}}\left[\bm{\phi}^T\bm{d}\right]\quad\text{subject to}\quad\begin{cases}
+0\leq\bm{\phi}\leq1\\
+\bm{\phi}^T\bm{b}=c
+\end{cases}\right],
+\label{1}
+\end{equation}
+where $\bm{\phi,b,d}\in\R^5$, $c\in\R$, and then, $P:\R^{11}\to\R$. We define the subset $\mathcal{A}\subset\R^{11}$ as the set where the values of $\bm{b,d}$, and $c$ can exists.\\
+\quad\\
+We want to find an approximate function $\tilde{P}(\cdot)$ such that
+\begin{equation*}
+||P-\tilde{P}||_{L^{\infty}(\mathcal{A})}\leq C,
+\end{equation*}
+where $C$ is an arbitrary positive constant, the idea is that evaluate $\tilde{P}(\cdot)$ is faster than evaluate the original function $P(\cdot)$.
+
+\subsubsection*{Suggested approximation}
+
+The function $\tilde{P}(\cdot)$ can be a trained NN using real solutions of (\ref{1}).
+
+\subsubsection*{Suggested literature and tutorials}
+
+\begin{enumerate}
+
+\item \url{https://scikit-learn.org/stable/}. {\color{blue} It has tutorials, and it is suitable for standard NN.}
+
+\item \url{https://pytorch.org/}. {\color{blue} It is useful if you want to design your architecture or to play with loss functions.}
+
+\item \url{https://www.fast.ai/}. {\color{blue} It is more practical and friendly for people no familiar with math.}
+
+\end{enumerate}
+
+These links were suggested by a Ph.D. student researching AI during an AI summer school (\url{http://acai2019.tuc.gr/}).
+
+\subsection*{About the data}
+
+The data is in Matlab format, and they are cells. Each file has a cell with dimensions $1\times225$. Each one of these cells has inside a $1\times5$ cell with 5 arrays. The arrays have dimensions 12, 1, 12, 1, and 1, respectively. These 5 arrays represent a single data point, where the first 4 arrays are the input, and the 5-th array is the output.
+
+\end{document}
