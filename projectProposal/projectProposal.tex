@@ -55,6 +55,8 @@ Optimization using Neural Networks}
 \date{}
 \maketitle
 
+\section*{Original formulation:}
+
 In this project, we want to approximate the result of a minimization problem using a neural network (NN). Our problem $P(\cdot)$ is composed of a linear objective with linear and box constraints:
 \begin{equation}
 P(\bm{b,d},c)=\left[\min_{\bm{\phi}}\left[\bm{\phi}^T\bm{d}\right]\quad\text{subject to}\quad\begin{cases}
@@ -89,8 +91,25 @@ The function $\tilde{P}(\cdot)$ can be a trained NN using real solutions of (\re
 
 These links were suggested by a Ph.D. student researching AI during an AI summer school (\url{http://acai2019.tuc.gr/}).
 
+\section*{Second formulation (Lanza):}
+
+In this second formulation we want to approximate
+\begin{equation}
+P(\bm{b,d,Q},c)=\left[\min_{\bm{\phi}}\left[\bm{\phi}^T\bm{d}\right]\quad\text{subject to}\quad\begin{cases}
+0\leq\bm{\phi}\leq1\\
+\bm{\phi}^T\bm{Q}\bm{\phi}+\bm{\phi}^T\bm{b}=c
+\end{cases}\right],
+\label{2}
+\end{equation}
+where $\bm{\phi,d,b}\in\R^{12}$, and $Q\in M^{12\times12}$. As the matrix $\bm{Q}$ has only 8 non-zero entries, we storage it as a vector.
+
 \subsection*{About the data}
 
-The data is in Matlab format, and they are cells. Each file has a cell with dimensions $1\times225$. Each one of these cells has inside a $1\times5$ cell with 5 arrays. The arrays have dimensions 12, 1, 12, 1, and 1, respectively. These 5 arrays represent a single data point, where the first 4 arrays are the input, and the 5-th array is the output.
+The data is in Matlab format, and they are cells. Each file has a cell with dimensions $1\times225$. Each one of these cells has inside a $1\times5$ cell with 5 arrays. The arrays have dimensions 12, 1, 12, 8, and 1, respectively. These 5 arrays represent a single data point, where the first 4 arrays are the input, and the 5-th array is the output.\\
+\quad\\
+In other words, each data point is composed by:
+\begin{equation*}
+\left(\underbrace{\bm{b},c,\bm{d},\bm{Q}}_{Inputs},\underbrace{P(\bm{b,d,Q},c)}_{Output}\right).
+\end{equation*}
 
 \end{document}
